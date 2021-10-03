@@ -1,0 +1,45 @@
+<?php if ($this->previewMode): ?>
+
+    <div class="form-control" id="<?= $this->getId('input') ?>">
+    </div>
+
+    <script type="text/javascript">
+        item = mediaItem('<?= $mode ?>', ['<?= $imageWidth ?>','<?= $imageHeight ?>']);
+        value = null;
+        container = $("#<?= $this->getId('input') ?>");
+        try {
+            value = JSON.parse('<?= $value ?>');
+        } catch(e) {
+            console.log(e); // error in the above string (in this case, yes)!
+        }
+        for(let i = 0; i < value.length; i++){
+            let el = item.get(value[i]);
+            container.append(el);
+        }
+    </script>
+<?php else: ?>
+
+    <input
+        type="hidden"
+        id="<?= $this->getId('input') ?>"
+        name="<?= $name ?>"
+        value='<?= $value ?>'
+        class="form-control"
+        autocomplete="off" />
+
+    <div id="<?= $this->getId('input') ?>-mediafinder">
+        
+    </div>
+
+    <script type="text/javascript">
+        $('#<?= $this->getId("input") ?>-mediafinder').mediafinder({
+            width: '<?= $imageWidth ?>',
+            height: '<?= $imageHeight ?>',
+            type: '<?= $mode ?>', 
+            value: '<?= $value ?>',
+            onChange: function(value){
+                $(`#<?= $this->getId('input') ?>`).val(value);
+            }
+        });
+    </script>
+<?php endif ?>
