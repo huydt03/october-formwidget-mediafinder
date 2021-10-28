@@ -34,8 +34,10 @@
 	}
 
 	function videoUrl(path){
+		let patt = /v=(\S+)/
+		let videoId = path.match(patt)[1];
 		return eItem(`<div class="finder-item finder-item-video">
-			<iframe width="${size[0]}" height="${size[1]}" src="${path}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			<iframe width="${size[0]}" height="${size[1]}" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			</div>`, path);
 	}
 

@@ -22,7 +22,7 @@ $.fn.mediafinder = function(params = {}){
 	let finderItem = (function finderItem(){
 		let efinder = $(`<div class="finder-item finder-item-add" title="Insert files">
 			<i class="icon-plus"></i></div>`);
-		efinder.click(function(){mediafiderOpen(efinder)});
+		efinder.click(function(event){mediafiderOpen(efinder, event)});
 		return efinder;
 	})();
 
@@ -89,9 +89,13 @@ $.fn.mediafinder = function(params = {}){
 			onSuccess(eContainer);
 		});
 
-		eContainer._show = function(){
+		eContainer._show = function(mouse = null){
 			eContainer.show();
 			eInput.focus();
+			if(mouse){
+				// console.dir(eContainer[0]);
+				// console.dir(mouse)
+			}
 		}
 
 		eContainer.hide();
@@ -113,11 +117,11 @@ $.fn.mediafinder = function(params = {}){
 		el.click(function(){mediafiderOpen(el)});
 	}
 
-	function mediafiderOpen(target){
+	function mediafiderOpen(target, mouse = null){
 		if(target != _target)
 			target.append(choiseAction);
 		_target = target;
-		choiseAction._show();
+		choiseAction._show(mouse);
 	}
 
 	(function init(){
